@@ -8,18 +8,23 @@ $(function(){
 
 	$('#step1 .encrypt').click(function(){
 		body.attr('class', 'encrypt');
-
+		$('a.button.process').html("Encrypt");
+		$("#myBtn").hide();
 		// Go to step 2
 		step(2);
 	});
 
 	$('#step1 .decrypt').click(function(){
 		body.attr('class', 'decrypt');
+		$('a.button.process').html("Decrypt");
+		$("#myBtn").hide();
 		step(2);
 	});
 
 
 	/* Step 2 */
+
+	
 
 
 	$('#step2 .button').click(function(){
@@ -85,7 +90,7 @@ $(function(){
 		var reader = new FileReader();
 		let saveFile;
 		if(body.hasClass('encrypt')){
-
+			$('a.button.process').html("Encrypting...");
 			// Encrypt the file!
 
 			reader.onload = function(e){
@@ -118,14 +123,15 @@ $(function(){
 				// write the ArrayBuffer to a blob, and you're done
 				saveFile = window.URL.createObjectURL(new Blob([ab],{type: mimeString}));
 
+				
+				var file_name = file.name+'.encrypted';
 
 
-
-				a.attr('href', saveFile);
-				a.attr('download', file.name + '.encrypted');
+				a.attr('onclick', 'saveAs("'+saveFile+'", "'+file_name+'")');
+				//a.attr('download', file.name + '.encrypted');
 
 			
-
+				$('a.button.process').html("Encrypt");
 				step(4);
 			};
 
@@ -137,7 +143,7 @@ $(function(){
 		else {
 
 			// Decrypt it!
-
+			$('a.button.process').html("Decrypting...");
 			reader.onload = function(e){
 
 				var decrypted = CryptoJS.AES.decrypt(e.target.result, password)
@@ -169,8 +175,28 @@ $(function(){
 				saveFile = window.URL.createObjectURL(new Blob([ab],{type: mimeString}));
 
 
-				a.attr('href', saveFile);
-				a.attr('download', file.name.replace('.encrypted',''));
+			
+
+				var file_name = file.name.replace('.encrypted','');
+
+
+				a.attr('onclick', 'saveAs("'+saveFile+'", "'+file_name+'")');
+
+				var video = document.getElementById('video');
+   				video.src = decrypted;
+				   $('a.button.process').html("Decrypt");
+
+					var file_name_arr = file_name.split(".");
+
+					if(file_name_arr[1] == "mp4")
+					{
+						$("#myBtn").show();
+					}
+					else
+					{
+						$("#myBtn").hide();
+					}
+
 
 				step(4);
 			};

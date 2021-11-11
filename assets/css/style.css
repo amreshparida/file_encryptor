@@ -131,6 +131,30 @@ body.decrypt .if-decrypt{
 	Button styles
 --------------------------*/
 
+.button-play{
+	width:215px;
+	height:70px;
+	text-align:center;
+	text-decoration: none !important;
+	color:#fff !important;
+	text-transform: uppercase;
+	font-weight: bold;
+	border-radius:1px;
+	display:block;
+	line-height:70px;
+	box-shadow:3px 3px 0 rgba(0,0,0,0.08);
+	cursor: pointer;
+	font-size:18px;
+	margin:10px auto;
+	opacity:0.9;
+	background: orangered;
+}
+
+.button-play:hover{
+	opacity:1;
+}
+
+
 
 .button{
 	width:240px;
@@ -244,7 +268,7 @@ body.decrypt #step2{
 	font: inherit;
 	display: inline-block;
 	outline: none;
-	width: 400px;
+	width: 300px;
 	margin-bottom: 18px;
 	border-radius: 2px;
 	box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
